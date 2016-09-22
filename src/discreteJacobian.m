@@ -14,15 +14,15 @@ function A = discreteJacobian (m, L, delta1, delta2, alpha, betha)
 	r2 = delta2 / (square_h * square_L);
 	T = tridiagonal (m, 1, -2, 1);
 	A = [ r1 * T + (betha - 1) * I, square_alpha * I ; -betha * I, r2 * T - square_alpha * I]; 
-endfunction
+end;
 
 function T = tridiagonal (m, n1, n2, n3)
 	T = zeros (m, m);
 	for i = 1 : 1 : m
-		matrix (i ,i) = n2;
+		T (i ,i) = n2;
 		if (i < m)
-			matrix (i + 1, i) = n1;
-			matrix (i, i + 1) = n3;
-		endif
-	endfor
-endfunction
+			T (i + 1, i) = n1;
+			T (i, i + 1) = n3;
+		end;
+	end;
+end;
