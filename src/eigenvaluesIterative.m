@@ -1,7 +1,8 @@
 function e = eigenvaluesIterative(m, L, delta1, delta2, alpha, betha)
-  A = discreteJacobian(m, L, delta1, delta2, alpha, betha)
-  #	A = [6 5 0; 5 1 4; 0 4 3];
+  % A = discreteJacobian(m, L, delta1, delta2, alpha, betha);
+  A = [6 5 0; 5 1 4; 0 4 3];
 	flag = true;
+	tic()
 	while (flag)
 		[Q, R]= givensQR(A);
 		Aaux = A;
@@ -14,7 +15,9 @@ function e = eigenvaluesIterative(m, L, delta1, delta2, alpha, betha)
 		if (errors / size(A)(1) < 1e-20)
 			flag = false;
 		end;
-		errors / size(A)(1);
+		errors / size(A)(1)
+		fflush(stdout);
 	end;
-	e = A;
+	toc()
+	e = diag(A);
 end;

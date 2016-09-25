@@ -1,4 +1,4 @@
-function [c,s] = givensrotation(a,b)
+function [c,s] = givensSinCos(a,b)
   if b != 0
     if abs(b) > abs(a)
       r = a / b;
