@@ -1,10 +1,9 @@
 function E = eigenvaluesIterative(m, L, delta1, delta2, alpha, betha)
   A = discreteJacobian(m, L, delta1, delta2, alpha, betha);
-  %A = [6 5 0; 5 1 4; 0 4 3];
-  %A = [0 1; -1 -1];
+  A = hessenbergTransformation(A);
   n = length(A);
   i = 1;
-  tol = 0.01;
+  tol = 0.001;
   while (n > 2)
 		[Q,R]=qrGS(A);
 		A = R*Q;
@@ -18,8 +17,6 @@ function E = eigenvaluesIterative(m, L, delta1, delta2, alpha, betha)
 			i=i+2;n = n - 2;
 			A = A(1:n,1:n);
 		end
-		fflush(stdout);
-		n
 	end
 	if (n==2)
 		Eaux = eig2p2 (A);
@@ -27,10 +24,24 @@ function E = eigenvaluesIterative(m, L, delta1, delta2, alpha, betha)
 	elseif (n==1)
 		E(i) = A(1,1);
 	end
-
 end;
 
 function E = eig2p2 (A)
 	p = [ 1 , -A(1,1)-A(2,2) , A(1,1)*A(2,2) - A(1,2)*A(2,1) ];
 	E = roots(p);
+end;
+
+function A = hessenbergTransformation(A)
+	n = length(A);
+	for k = 1 : n - 2
+	    v = A(k+1:n,k);
+	    alpha = -norm(v);
+	    if (v(1) < 0) alpha = -alpha; end
+	    v(1) = v(1) - alpha; 
+	    v = v / norm(v);
+	    A(k+1:n,k+1:n) = A(k+1:n,k+1:n) - 2 * v * (v.' * A(k+1:n,k+1:n));
+	    A(k+1,k) = alpha;
+	    A(k+2:n,k) = 0;
+	    A(1:n,k+1:n) = A(1:n,k+1:n) - 2 * (A(1:n,k+1:n) * v) * v.';
+	end
 end;

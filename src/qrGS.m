@@ -1,6 +1,6 @@
+%Calculo de las matrices Q y R utilizando Gram-Schmidt a partir de la matriz A.
 function [Q,R] = qrGS(A)
 [m,n] = size(A);
-% compute QR using Gram-Schmidt
 for j = 1:n
    v = A(:,j);
    for i=1:j-1

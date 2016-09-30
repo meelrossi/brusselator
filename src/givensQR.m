@@ -1,3 +1,4 @@
+%Calculo de las matrices Q y R utilizando rotaciones de Givens a partir de la matriz A.
 function [Q,R] = givensQR(A)
   [m,n] = size(A);
   Q = eye(m);
@@ -12,7 +13,7 @@ function [Q,R] = givensQR(A)
       G(i, i) = c; 
 
       Q = Q*G;
+      R = Q'*A;
     end
   end
-  R = Q'*A;
 end
