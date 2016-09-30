@@ -33,7 +33,9 @@ function E = eigenvaluesIterative(m, L, delta1, delta2, alpha, betha)
     end
 end;
 
-eigvals = @(M) roots([1, -M(1,1) - M(2,2), M(1,1) * M(2,2) - M(1,2) * M(2,1)]);
+function R = eigvals(M)
+	R = roots([1, -M(1,1) - M(2,2), M(1,1) * M(2,2) - M(1,2) * M(2,1)]);
+end;
 
 function A = hessenbergTransformation(A)
 	n = length(A);
