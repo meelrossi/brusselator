@@ -1,4 +1,5 @@
-function [c,s] = givensrotation(a,b)
+%Calculo de los senos y cosenos correspondientes al método de rotaciones de Givens.
+function [c,s] = givensSinCos(a,b)
   if b != 0
     if abs(b) > abs(a)
       r = a / b;
